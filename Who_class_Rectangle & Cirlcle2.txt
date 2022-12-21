@@ -1,0 +1,82 @@
+#include <iostream>
+#include <queue>
+#include <string>
+#include <bits/stdc++.h>
+#include <algorithm>
+#define X first
+#define Y second
+
+using namespace std;
+
+class Rectangle {
+private:
+	int x, y, size;
+public:
+	void input()
+	{
+		cin >> x >> y;
+	}
+	void output()
+	{
+		size = x * y;
+		cout << x << ' ' << y << ' ' << size << '\n';
+	}
+};
+
+class Triangle {
+private:
+	int x, y;
+	double size;
+public:
+	void input()
+	{
+		cin >> x >> y;
+	}
+	void output()
+	{
+		size = x * y;
+		size /= 2;
+		cout << x << ' ' << y << ' ' << size << '\n';
+	}
+
+};
+class shape {
+private:
+	Rectangle R;
+	Triangle T;
+public:
+	void input_r()
+	{
+		R.input();
+	}
+	void output_r()
+	{
+		R.output();
+	}
+	void input_t()
+	{
+		T.input();
+	}
+	void output_t()
+	{
+		T.output();
+	}
+};
+
+
+
+int main()
+{
+	int menu;
+	shape S;
+	while (1)
+	{
+		cin >> menu;
+		if (menu == 0)	return 0;
+		else if (menu == 1)	S.input_r();
+		else if (menu == 2) S.input_t();
+		else if (menu == 3) S.output_r();
+		else if (menu == 4) S.output_t();
+	}
+	return 0;
+}

@@ -1,0 +1,49 @@
+#연습문제 2
+
+from tkinter import *
+
+def plus():
+    global total #global 함수를 사용하여 전역 처리함
+    total += int(e.get()) #Entry 함수를 사용하여 한 줄로 받음 입력 값을 더함
+    display() #display 함수를 호출함 -> why 현재 total 값을 화면에 표시해야하기 때문에
+
+def minus():
+    global total #global 함수를 사용하여 전역 처리함
+    total -= int(e.get())#Entry 함수를 사용하여 한 줄로 받음 입력 값을 뺌
+    display()
+
+def reset():
+    global total #global 함수를 사용하여 전역 처리함
+    total = 100 # 초기화
+    display()
+
+def display(): #total 값을 화면에 표시하기 위함
+    global secondLabel #global 함수를 사용하여 전역 처리함
+    secondLabel.destroy() #해당 객체를 파괴하는 함수 즉, 이전에 존재하는 total 값을 없애고 새로 표시하기 위함
+    secondLabel = Label(window,text=total) #secondLabel 객체를 재생성하여 띄움
+    secondLabel.grid(row=0,column=1) #재생성된 객체를 격자 배치 관리자 함수인 grid함수를 사용하여 x, y축을 임의로 지정함
+
+
+total = 100 #문제의 그림대로 100을 걸어놓고 시작
+
+window = Tk()#모듈 안의 Tk클래스를 최상위 window로 생성해줌
+
+firstLabel  = Label(window, text="현재 합계: ")
+secondLabel = Label(window, text=total)#firstLabel의 다음 값 즉, total 값을 표시해줌
+
+firstLabel.grid(row=0,column=0) #격자 배치 관리자 함수인 grid를 사용하여 x, y축을 임의로 지정함
+secondLabel.grid(row=0, column=1)#격자 배치 관리자 함수인 grid를 사용하여 x, y축을 임의로 지정함
+
+e = Entry(window) #한 줄로 입력을 받기 위해 Entry를 사용함
+e.grid(row=1,column=0, columnspan=3) #격자 배치 관리자를 사용하여 x축, y축을 임의로 지정함
+#columnspan을 활용하여 현재 배치된 구역에서 위치를 조정함
+
+plusBtn  = Button(window, text="더하기(+)", command=plus) #Plus Button이 눌리면 plus 함수를 호출함 
+minusBtn = Button(window, text="빼기(-)", command=minus) #Minus Button이 눌리면 Minus 함수를 호출함 
+resetBtn = Button(window, text="초기화", command=reset) #초기화 Button이 눌리면 reset 함수를 호출함
+
+plusBtn.grid(row=2, column=0)#격자 배치 관리자 함수인 grid를 사용하여 x, y축을 임의로 지정함
+minusBtn.grid(row=2, column=1)#격자 배치 관리자 함수인 grid를 사용하여 x, y축을 임의로 지정함
+resetBtn.grid(row=2, column=2)#격자 배치 관리자 함수인 grid를 사용하여 x, y축을 임의로 지정함
+
+window.mainloop()

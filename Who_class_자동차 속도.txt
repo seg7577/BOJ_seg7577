@@ -1,0 +1,81 @@
+#include <iostream>
+#include <queue>
+#include <string>
+#include <algorithm>
+#include <bits/stdc++.h>
+//#define X first
+//#define Y second
+//#define pi 3.14
+using namespace std;
+
+//외부에 공개할 멤버는 public 으로, 외부로부터 접근을 차단할 멤버는 private 으로 구분한다.
+int num;
+class Speed {
+private:
+	int speed_limit;
+	int car_speed = 0;
+	string condition = "On";
+public:
+	void limit_car()
+	{
+		cin >> speed_limit;
+	}
+
+	void accel()
+	{
+		cin >> num;
+		car_speed += num;
+
+		if (condition == "Off")
+			condition = "On";
+
+		cout << condition << ' ' << car_speed << '\n';
+
+		if (speed_limit < car_speed)	cout << "ATTENTION : overspeed!" << '\n';
+	}
+	void Minus()
+	{
+		cin >> num;
+		car_speed -= num;
+
+		if (car_speed > 0)
+		{
+			condition = "On";
+			cout << condition << ' ' << car_speed << '\n';
+		}
+
+		else
+		{
+			car_speed = 0;
+			condition = "Off";
+			cout << condition << ' ' << car_speed << '\n';
+		}
+
+		if (car_speed > speed_limit)
+			cout << "ATTENTION:overspeed!"<< '\n';
+	}
+	void stop()
+	{
+		car_speed = 0;
+		condition = "Off";
+		cout << condition << ' ' << car_speed << '\n';
+	}
+};
+
+int main()
+{
+	int menu;
+	Speed S;
+	S.limit_car();
+
+	while (1)
+	{
+		cin >> menu;
+		if (menu == 0)	break;
+		else if (menu == 1)	S.accel();
+		else if (menu == 2) S.Minus();
+		else if (menu == 3) S.stop();
+	}
+
+	return 0;
+}

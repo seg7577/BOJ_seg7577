@@ -1,0 +1,14 @@
+def draw_hexa():
+    for i in range(6):
+        t.fd(50)
+        t.rt(60)
+ 
+#main     
+import turtle
+t = turtle.Turtle()
+t.shape("turtle")
+
+for i in range(6):
+    t.fd(50)
+    t.lt(60)
+    draw_hexa()

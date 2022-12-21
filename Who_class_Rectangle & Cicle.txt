@@ -1,0 +1,67 @@
+//Rectangle_Cicle
+
+#include <iostream>
+#include <queue>
+#include <string>
+#include <algorithm>
+#include <bits/stdc++.h>
+#define X first
+#define Y second
+#define pi 3.14
+using namespace std;
+
+//외부에 공개할 멤버는 public 으로, 외부로부터 접근을 차단할 멤버는 private 으로 구분한다.
+
+class Rectangle {
+private :
+	int width;
+	int Height;
+
+public:
+	int area()
+	{
+		cin >> width >> Height;
+		return width * Height;
+	}
+	int perimeter()
+	{
+		return 2 * (width * Heig;
+	}
+	
+};
+
+class Circle{
+private:
+	int r;
+
+public:
+	double area()
+	{
+		cin >> r;
+		return pi * (r*r);
+	}
+	double perimeter()
+	{
+		return 2 * pi * r;
+	}
+
+};
+
+int main()
+{
+	cout.setf(std::ios::fixed, std::ios::floatfield);
+	cout.precision(2);
+
+	Rectangle R;
+	Circle C;
+	int area_R, Per_R;
+	double area_C, Per_C;
+
+	area_R = R.area();
+	Per_R = R.perimeter();
+	area_C = C.area();
+	Per_C = C.perimeter();
+
+	cout << area_R << '\n' << Per_R << '\n' << area_C << '\n' << Per_C << '\n';
+	return 0;
+}

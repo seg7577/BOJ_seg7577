@@ -1,0 +1,102 @@
+#include <iostream>
+#include <algorithm>
+//#include<stack>
+//#include<string>
+//#include<list>
+using namespace std;
+
+double area(int x); //원의 넓이
+int area(int x1, int x2); //사각형
+int area(int x1, int x2, int x3); // 육면체
+double perimeter(int x1); //원 둘레
+int perimeter(int x1, int x2); //사각형
+int perimeter(int x1, int x2, int x3);//육면체
+
+int main()
+{
+	int menu, x, y, z;
+
+	cin >> menu;
+
+	while (1)
+	{
+		if (menu == 0)
+			return 0;
+		else if (menu == 1)
+		{
+			cin >> x >> y;
+			if (0 < x && 0 < y)
+			{
+				cout << area(x, y) << ' ' << perimeter(x, y);
+				break;
+			}
+
+			else
+			{
+				cout << "incorrect number";
+				cin >> menu;
+			}
+		}
+		else if (menu == 2)
+		{
+			cin >> x;
+			if (0 < x)
+			{
+				cout << area(x) << ' ' << perimeter(x);
+				break;
+			}
+
+			else
+			{
+				cout << "incorrect number";
+				cin >> menu;
+			}
+		}
+		else if (menu == 3)
+		{
+			cin >> x >> y >> z;
+			if (0 < x && 0 < y && 0 < z)
+			{
+				cout << area(x, y, z) << ' ' << perimeter(x, y, z);
+				break;
+			}
+
+			else
+			{
+				cout << "incorrect number";
+				cin >> menu;
+			}
+		}
+		else
+		{
+			cout << "wrong menu";
+			cin >> menu;
+		}
+	}
+	return 0;
+}
+double area(int x) //원의 넓이
+{
+	return x * x * 3.14;
+}
+int area(int x1, int x2) //사각형
+{
+	return x1 * x2;
+}
+int area(int x1, int x2, int x3) // 육면체
+{
+	int num = (x1 * x2) + (x1 * x3) + (x2 * x3);
+	return num * 2;
+}
+double perimeter(int x1) //원 둘레
+{
+	return 2 * 3.14 * x1;
+}
+int perimeter(int x1, int x2) //사각형
+{
+	return 2 * (x1 + x2);
+}
+int perimeter(int x1, int x2, int x3)//육면체
+{
+	return 4 * (x1 + x2 + x3);
+}

@@ -1,0 +1,46 @@
+from tkinter import *
+import random
+
+window = Tk()
+num = 0
+betNum = random.randint(1,100) #난수 발생
+
+def run():
+    global num
+    global betNum
+
+    num = int(e.get())#Entry를 통해 입력을 받은 수를 문자열 -> 정수형 변환
+    if num < betNum:
+        firstLabel['text'] = "너무 낮아요!!"
+    elif num > betNum:
+        firstLabel['text'] = "너무 높아요!!"
+    else:
+        firstLabel['text'] = "정답입니다!"
+
+def reset():
+    global num
+    global betNum
+
+    e.delete(0,END)
+    secondLabel.config(text="")
+    betNum = random.randint(1,100) #다시 실행이므로 난수를 재입력 받음
+    num = 0 #find 값 초기화
+
+firstLabel = Label(window, text="1에서 100사이의 수를 입력하세요.") #시작 문자열
+secondLabel = Label(window,)
+thridLabel = Label(window, )
+
+firstLabel.grid(row=1, column=0, columnspan=2)#격자 배치 관리자 함수인 grid를 이용하여 위치를 조정
+secondLabel.grid(row=2, column=0, columnspan=2)#격자 배치 관리자 함수인 grid를 이용하여 위치를 조정
+thridLabel.grid(row=4, column=0, columnspan=2)#격자 배치 관리자 함수인 grid를 이용하여 위치를 조정
+
+e = Entry(window)#한 줄에 입력을 받기 위함
+e.grid(row=3, column=0, columnspan=2)#격자 배치 관리자 함수인 grid를 이용하여 위치를 조정
+
+firstBtn = Button(window, text="숫자를 입력", command = run)#run 함수를 호출하여 현재 값 대소 비교
+secondBtn= Button(window, text="게임을 다시 실행", command = reset)
+
+firstBtn.grid(row=5, column=0)#격자 배치 관리자 함수인 grid를 이용하여 위치를 조정
+secondBtn.grid(row=5, column=1)#격자 배치 관리자 함수인 grid를 이용하여 위치를 조정
+
+window.mainloop()

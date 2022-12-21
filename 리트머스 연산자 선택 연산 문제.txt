@@ -1,0 +1,133 @@
+#include <iostream>
+#include <algorithm>
+//#include<stack>
+#include<string>
+//#include<list>
+using namespace std;
+
+int SUM(int x, int y); //정수형 더하기
+double SUM(double x, double y);//실수형 더하기
+string SUM(string x, string y); //문자열 더하기
+int SUB(int x, int y); //정수형 빼기
+double SUB(double x, double y);//실수형 빼기
+int MULT(int x, int y); //정수형 곱하기
+double MULT(double x, double y); //실수형 곱하기
+int DIV(int x, int y); //정수형 나누기 
+double DIV(double x, double y); //실수형 나누기
+int MOD(int x, int y); //정수형 나머지
+
+char x;
+int num1, num2, type;
+double sum1, sum2;
+
+int main()
+{
+
+	cin >> type;
+
+	if (type == 1) //정수형
+	{
+
+		cin >> num1 >> x >> num2;
+		if (x == '+')
+			cout << SUM(num1, num2);
+		else if (x == '-')
+			cout << SUB(num1, num2);
+		else if (x == '*')
+			cout << MULT(num1, num2);
+		else if (x == '/')
+			cout << DIV(num1, num2);
+		else if (x == '%')
+			cout << MOD(num1, num2);
+		else
+			cout << "incorrect";
+	}
+
+	else if (type == 2)
+	{
+		cin >> sum1 >> x >> sum2;
+		if (x == '+')
+		{
+			cout << fixed;
+			cout.precision(2);
+			cout << SUM(sum1, sum2);
+		}
+
+		else if (x == '-')
+		{
+			cout << fixed;
+			cout.precision(2);
+			cout << SUB(sum1, sum2);
+		}
+
+		else if (x == '*')
+		{
+			cout << fixed;
+			cout.precision(2);
+			cout << MULT(sum1, sum2);
+		}
+
+		else if (x == '/')
+		{
+			cout << fixed;
+			cout.precision(2);
+			cout << DIV(sum1, sum2);
+		}
+		else
+			cout << "incorrect";
+
+	}
+
+	else if (type == 3)
+	{
+		string str1, str2;
+		cin >> str1 >> x >> str2;
+		if (x == '+')
+			cout << SUM(str1, str2);
+		else
+			cout << "incorrect";
+	}
+
+	return 0;
+}
+
+int SUM(int x, int y) //정수형 더하기
+{
+	return x + y;
+}
+double SUM(double x, double y)//실수형 더하기
+{
+	return x + y;
+}
+string SUM(string x, string y) //문자열 더하기
+{
+	return x + y;
+}
+int SUB(int x, int y) //정수형 빼기
+{
+	return x - y;
+}
+double SUB(double x, double y)//실수형 빼기
+{
+	return x - y;
+}
+int MULT(int x, int y) //정수형 곱하기
+{
+	return x * y;
+}
+double MULT(double x, double y) //실수형 곱하기
+{
+	return x * y;
+}
+int DIV(int x, int y) //정수형 나누기 
+{
+	return x / y;
+}
+double DIV(double x, double y) //실수형 나누기
+{
+	return x / y;
+}
+int MOD(int x, int y) //정수형 나머지
+{
+	return x % y;
+}

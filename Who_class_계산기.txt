@@ -1,0 +1,79 @@
+//계산기
+
+#include <iostream>
+#include <queue>
+#include <string>
+#include <algorithm>
+#include <bits/stdc++.h>
+#define X first
+#define Y second
+#define pi 3.14
+using namespace std;
+
+//외부에 공개할 멤버는 public 으로, 외부로부터 접근을 차단할 멤버는 private 으로 구분한다.
+int menu;
+class  Calculator{
+private :
+	int x, y, add_cnt = 0, Minus_cnt = 0, Mul_cnt = 0, Div_cnt = 0, Mod_cnt = 0;
+
+public:
+	void in()
+	{
+		cin >> x >> y;
+	}
+	void add()
+	{
+		add_cnt++;
+		cout <<  x + y << '\n';
+	}
+	void Minus()
+	{
+		Minus_cnt++;
+		cout << x - y << '\n';
+	}
+	void Mul()
+	{
+		Mul_cnt++;
+		cout << x * y << '\n';
+	}
+
+	void Div()
+	{
+		Div_cnt++;
+		cout << x / y << '\n';
+	}
+
+	void Mod()
+	{
+		Mod_cnt++;
+		cout << x % y << '\n';
+	}
+	
+	void count()
+	{
+		cout << "Add: " << add_cnt << '\n' << "Minus: " << Minus_cnt << '\n' << "Mul: " << Mul_cnt << '\n' << "Add: " << Div_cnt << '\n' << "Add: " << Mod_cnt << '\n';
+	}
+	
+	
+};
+int main()
+{
+	cout.setf(std::ios::fixed, std::ios::floatfield);
+	cout.precision(2);
+
+	Calculator cal;
+	while (1)
+	{
+
+		cin >> menu;
+		if (menu == 0)	break;
+		else if (menu == 1)	cal.in();
+		else if (menu == 2)	cal.add();
+		else if (menu == 3)	cal.Minus();
+		else if (menu == 4)	cal.Mul();
+		else if (menu == 5)	cal.Div();
+		else if (menu == 6)	cal.Mod();
+		else if (menu == 7)	cal.count();
+	}
+	return 0;
+}
