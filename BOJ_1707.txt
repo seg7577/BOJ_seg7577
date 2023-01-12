@@ -1,0 +1,82 @@
+#include <iostream>
+#include <vector>
+#include <string.h>
+#include <algorithm>
+
+#define RED 2
+#define BLUE 3
+
+using namespace std;
+
+vector <int> vect[20001]; //인접리스트
+int visited[20001];      //방문기록
+int V, E;
+
+void dfs(int index);
+bool check();
+int main()
+{
+	int t, node1, node2;
+	cin >> t;
+
+	for (int i = 0; i < t; i++) //간선의 수에 맞추어 입력을 받는다.
+	{
+		cin >> V >> E;
+		for (int j = 0; j < E; j++)
+		{
+			cin >> node1 >> node2;
+			vect[node1].push_back(node2);
+			vect[node2].push_back(node1);
+		}
+
+		for (int j = 1; j <= V; j++) //노드의 갯수만큼 dfs를 돌린다 == 단 한 곳의 노드도 빠지지 않고 색깔을 칠하기 위함
+			if (visited[j] == 0) //만약 아직 방문하지 않은 곳인 경우에만 dfs 함수를 호출함
+				dfs(j);
+
+		if (!check())	//이분 그래프인지 아닌지 확인하기 위한 함수 호출
+			cout << "NO" << '\n';
+		else
+			cout << "YES" << '\n';
+
+		memset(visited, 0, sizeof(visited));
+		memset(vect, 0, sizeof(vect));
+	}
+
+	return 0;
+
+}
+
+bool check()
+{
+	for (int i = 1; i <= V; i++)
+	{
+		for (int j = 0; j < vect[i].size(); j++)
+		{
+			int idx = vect[i][j];
+			if (visited[i] == visited[idx]) //부모 노드의 색과 자식 노드의 색이 동일한 경우
+				return false;
+
+		}
+	}
+	return true;
+}
+
+void dfs(int index)
+{
+	if (visited[index] == 0)
+		visited[index] = RED;
+
+	for (int i = 0; i < vect[index].size(); i++)
+	{
+		int start = vect[index][i];
+		if (visited[start] == 0)
+		{
+			if (visited[index] == RED)
+				visited[start] = BLUE;
+			else if (visited[index] == BLUE)
+				visited[start] = RED;
+
+			dfs(start); //요소별로 방문
+		}
+	}
+}
