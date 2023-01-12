@@ -1,0 +1,69 @@
+#include <iostream>
+#include <queue>
+#include <vector>
+
+using namespace std;
+
+vector <int> station[100005];
+queue <int> Q;
+
+int Distance[100005]; //거리
+int N, K, M; //역의 수, 서로 연결하는 역의 개수, 하이퍼튜브의 개수
+
+int BFS();
+
+int main()
+{
+	cin >> N >> K >> M;
+	
+	for (int i = 1; i <= M; i++) //입력
+		for (int j = 0; j < K; j++)
+		{
+			int a; cin >> a;
+			station[a].push_back(i + N);
+			station[i + N].push_back(a);
+			/*
+			* case 1: a = 1인 경우 index 1에다가 i + N = 10을 넣는다.
+			*		  a = 1인 경우 i + N = 10이므로 index 10에다가 1을 넣는다.
+			*		  a = 2인 경우 index 2에다가 i + N = 10을 넣는다.
+			*		  a = 2인 경우 i + N = 10이므로 index 10에다가 2를 넣는다.
+			*		  a = 3인 경우 index 3에다가 i + N = 10을 넣는다.
+			*		  a = 3인 경우 i + N = 10이므로 index 10에다가 3을 넣는다.
+			*
+			* i = 2   a = 1인 경우 index 1에다가 i + N = 11을 넣는다.
+			*		  a = 1인 경우 i + N = 11이므로 index 11에다가 1을 넣는다.
+			*		  a = 4인 경우 index 4에다가 i + N = 11을 넣는다.
+			*		  a = 4인 경우 i + N = 11이므로 index 11에다가 4를 넣는다.
+			*		  a = 5인 경우 index 5에다가 i + N = 11을 넣는다.
+			*		  a = 5인 경우 i + N = 11이므로 index 11에다가 5를 넣는다.
+			*/
+		}
+
+}
+
+int BFS()
+{
+	Q.push(1);
+	Distance[1] = Q.front();
+
+	while (!Q.empty())
+	{
+		int cur = Q.front();
+		Q.pop();
+
+		if (Distance[cur] == N)	return Distance[cur]; //거리의 최소값을 반환한다.
+
+		for (int i = 0; i < station[cur].size(); i++)
+		{
+			int Next_station = station[cur][i];
+			if (Distance[Next_station] == 0) //거리를 측정하지 않은 곳인 경우
+			{
+				if (Next_station > N)	Distance[Next_station] = Distance[cur];
+				else
+					Distance[Next_station] = Distance[cur] + 1;
+				Q.push(Next_station);
+			}
+		}
+	}
+	return -1;
+}
