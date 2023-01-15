@@ -1,69 +1,68 @@
 #include <iostream>
 #include <queue>
 #include <vector>
+#include <algorithm>
+
+#define X first
+#define Y second
+
+//idea : K(하이퍼튜브가 서로 연결하는 역의 개수)만큼 반복을 하며 간선을 연결하면 1000^3 => 약 10억이 나옴 메모리 초과로 이어진다. (1억칸이 잡아먹는 메모리의 크기가 약 300MB라고 함)
+//그러므로 해당 N번째 하이퍼튜브를 Hyper 배열의 인덱스로 잡고 연결 되는 역을 해당 인덱스의 원소로 집어 넣는 것이다.
 
 using namespace std;
-
-vector <int> station[100005];
-queue <int> Q;
-
-int Distance[100005]; //거리
-int N, K, M; //역의 수, 서로 연결하는 역의 개수, 하이퍼튜브의 개수
-
+void input(); //입력을 받기 위한 함수
 int BFS();
+
+vector <int> Hyper[1000005]; //하이퍼 튜브 즉, 하나의 하이퍼튜브에 X역이 몇개가 연결 됐는지를 저장하기 위함
+queue <int> station; //BFS에서 사용할 변수
+int vis[1000005];//1번역에서 N번역까지의 거리를 측정하기 위해 -1로 초기화한다.
+int N, K, M;
 
 int main()
 {
-	cin >> N >> K >> M;
-	
-	for (int i = 1; i <= M; i++) //입력
-		for (int j = 0; j < K; j++)
-		{
-			int a; cin >> a;
-			station[a].push_back(i + N);
-			station[i + N].push_back(a);
-			/*
-			* case 1: a = 1인 경우 index 1에다가 i + N = 10을 넣는다.
-			*		  a = 1인 경우 i + N = 10이므로 index 10에다가 1을 넣는다.
-			*		  a = 2인 경우 index 2에다가 i + N = 10을 넣는다.
-			*		  a = 2인 경우 i + N = 10이므로 index 10에다가 2를 넣는다.
-			*		  a = 3인 경우 index 3에다가 i + N = 10을 넣는다.
-			*		  a = 3인 경우 i + N = 10이므로 index 10에다가 3을 넣는다.
-			*
-			* i = 2   a = 1인 경우 index 1에다가 i + N = 11을 넣는다.
-			*		  a = 1인 경우 i + N = 11이므로 index 11에다가 1을 넣는다.
-			*		  a = 4인 경우 index 4에다가 i + N = 11을 넣는다.
-			*		  a = 4인 경우 i + N = 11이므로 index 11에다가 4를 넣는다.
-			*		  a = 5인 경우 index 5에다가 i + N = 11을 넣는다.
-			*		  a = 5인 경우 i + N = 11이므로 index 11에다가 5를 넣는다.
-			*/
-		}
+	ios::sync_with_stdio(false);
+	cin.tie(0);
+	cout.tie(0);
 
+	fill_n(vis, 1000005, -1);
+	cin >> N >> K >> M; //총 역의 수, 하이퍼튜브가 서로 연결하는 역의 개수, 하이퍼 튜브의 총 개수를 입력 받음
+	input(); //입력 함수 호출
+	cout << BFS();
 }
 
 int BFS()
 {
-	Q.push(1);
-	Distance[1] = Q.front();
+	station.push(1); //시작역이 1번역이므로
+	vis[station.front()] = 1; //시작역은 거리는 0
 
-	while (!Q.empty())
+	while (!station.empty())
 	{
-		int cur = Q.front();
-		Q.pop();
+		int cur = station.front();
+		station.pop();
 
-		if (Distance[cur] == N)	return Distance[cur]; //거리의 최소값을 반환한다.
-
-		for (int i = 0; i < station[cur].size(); i++)
+		if (cur == N)	return vis[cur];
+		for (int dir = 0; dir < Hyper[cur].size(); dir++)
 		{
-			int Next_station = station[cur][i];
-			if (Distance[Next_station] == 0) //거리를 측정하지 않은 곳인 경우
+			int next = Hyper[cur][dir];
+			if (vis[next] == -1)
 			{
-				if (Next_station > N)	Distance[Next_station] = Distance[cur];
-				else
-					Distance[Next_station] = Distance[cur] + 1;
-				Q.push(Next_station);
+				if (next > N)	vis[next] = vis[cur];
+				else vis[next] = vis[cur] + 1;
+				station.push(next);
 			}
 		}
 	}
 	return -1;
+}
+
+void input()
+{
+	int num;
+	for (int i = 1; i <= M; i++)
+		for (int j = 0; j < K; j++)
+		{
+			cin >> num;
+			Hyper[i + N].push_back(num);
+			Hyper[num].push_back(i + N);
+		}
 }
