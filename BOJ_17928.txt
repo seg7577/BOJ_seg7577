@@ -3,36 +3,36 @@
 
 using namespace std;
 
-int sol[1000005];
-int arry[1000005];
-
-stack <int> s;
+stack<int> s;
 
 int main()
 {
+	ios_base::sync_with_stdio(false);
+	cin.tie(0);
+	cout.tie(0);
+
 	int n;
 	cin >> n;
 
+	int* arry = new int[n + 1];
 	for (int i = 0; i < n; i++)
 		cin >> arry[i];
 
+	int* sol = new int[n + 1];
 	for (int i = n - 1; 0 <= i; i--)
 	{
-		while (!s.empty() && s.top() <= arry[i]) //오름차순으로 정렬된 막대에 비유해서 이해하기
-			s.pop();//pop를 하면 현재 수보다 더 큰 수가 존재하는지 반복함
+		while (!s.empty() && s.top() <= arry[i])
+			s.pop();
 
-		if (s.empty()) //시작은 오름차순이므로 오른쪽부터이므로 stack이 비어있는 상태로 시작한다
-			sol[i] = -1;//가장 오른쪽 수는 오큰수가 없다
-		else //스택이 비어있지 않다면 arry[i] 보다 큰 숫자가 존재한다는 의미이므로 
+		if (s.empty())
+			sol[i] = -1;
+		else
 			sol[i] = s.top();
-
-		s.push(arry[i]); //오름차순으로 정렬
+		s.push(arry[i]);
 	}
 
 	for (int i = 0; i < n; i++)
-		cout << sol[i] << " ";
-
+		cout << sol[i] << ' ';
+	delete arry, sol;
 	return 0;
 }
-
-//막대 수열 https://cocoon1787.tistory.com/347
